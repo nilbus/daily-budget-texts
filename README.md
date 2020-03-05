@@ -1,7 +1,7 @@
 daily-budget-texts
 ==================
 
-Send a daily text message with how much of your monthly budget remains, based on spending transaction data from Mint.
+Send a daily text message with how much of your monthly budget remains, based on spending transaction data from [Mint][].
 
     Budget remaining: $3040.66 (76%)
     Savings bucket: $1042
@@ -10,7 +10,7 @@ How it works
 ------------
 
 - You set a monthly _spending allowance_ and _savings target_. The spending allowance is for typical monthly expenses, and the savings target is intended to build up for larger purchases, vacations, etc.). For most situations, these combined will equal your monthly net income.
-- Every day, daily-budget-texts logs into your [Mint][] account to pull the month's latest transactions from your bank and credit accounts.
+- Every day, daily-budget-texts logs into your Mint account to pull the month's latest transactions from your bank and credit accounts.
 - You receive a daily text message showing how much money is left in the budget for the month (budget allowance – spending).
 - For transaction details and budget category breakdown, just log into Mint. These text messages focus on the overall spending allowance and savings accumulation only.
 - On the 1st of each month, any remaining budget (or negative overage) is added to the savings bucket, along with the monthly savings target (savings = savings + budget_remaining + savings_target).
