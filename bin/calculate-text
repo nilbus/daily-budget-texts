@@ -1,0 +1,22 @@
+#!/bin/bash
+# Temporary hack script for testing while the real code gets built
+set -o errexit
+set -o nounset
+
+budget=5150
+spent=$(
+  jq '
+    .[] |
+    select(
+      (.date >= 1583020800000) and
+      (.transaction_type == "debit") and
+      (.category | try (in({
+        "credit card payment": 1,
+        "hide from budgets & trends": 1,
+        "income": 1,
+        "mortgage & rent": 1,
+      }) | not) catch true)
+    ) |
+    .amount' "data/${1}.json" | sed 's/$/ +/' | xargs echo | sed 's/+$//' | bc)
+date "+%B %-d"
+echo "Budget remaining: \$$(bc <<< "$budget - $spent") ($(bc -l <<< "scale=0;100 * ($budget - $spent) / $budget")%)"

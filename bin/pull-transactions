@@ -1,0 +1,32 @@
+#!/bin/bash
+set -o errexit
+set -o nounset
+
+print_usage() {
+  echo "Usage: pull-transactions <mint_account_email> [-v|--verbose]"
+}
+
+parse_options() {
+  mint_email="${1-}"
+  if ! [[ "$mint_email" == *'@'* ]]; then
+    print_usage
+    exit 1
+  fi
+  if ! [[ "${2-}" == "-v" ]] || [[ "$2" == "--verbose" ]]; then
+    headless='--headless'
+  fi
+}
+
+run_mintapi() {
+  bin_path="$(dirname "$0")"
+  data_path="../data"
+
+  # A chromedriver file gets dropped into whatever directory we run mintapi from. Keep this in bin/.
+  cd "$bin_path"
+
+  echo "Pulling transactions..."
+  mintapi ${headless-} --transactions --keyring "$mint_email" --filename "$data_path/$mint_email.json"
+}
+
+parse_options "$@"
+run_mintapi
