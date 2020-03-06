@@ -1,0 +1,23 @@
+{
+  "name": "daily-budget-texts",
+  "version": "0.0.0",
+  "description": "Send a daily text message with how much of your monthly budget remains, based on spending transaction data from Mint",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nilbus/daily-budget-texts.git"
+  },
+  "keywords": [
+    "mint",
+    "budget"
+  ],
+  "author": "Edward Anderson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nilbus/daily-budget-texts/issues"
+  },
+  "homepage": "https://github.com/nilbus/daily-budget-texts#readme"
+}
