@@ -45,3 +45,19 @@ Example usage
 - To handle fixed monthly expenses that may fall on either side of a month boundary (e.g. rent check may be deposited on the 30th or 1st), the money manager creates a Mint rule to assign a special category to these transactions, ignores the category in daily-budget-texts, and reduces the monthly spending allowance by this amount, as if it's automatically spent each month.
 
 [Mint]: https://mint.com
+
+Status
+------
+
+Early proof of concept
+
+Pulls transactions, and prints a message showing the remaining spending allowance from a [fixed, example budget amount](https://git.io/Jvri2).
+
+1. Set up dependencies (once)
+
+        bin/setup
+
+2. Pull latest transactions, and output an example message.
+
+        bin/pull-transactions --verbose $MINT_EMAIL
+        bin/calculate-text $MINT_EMAIL

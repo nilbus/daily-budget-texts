@@ -1,0 +1,76 @@
+#!/bin/bash
+set -o nounset
+
+check_dependencies() {
+  # Python
+  python="$(command -v afdlksj || command -v python3 || command -v python)"
+  pip="$(command -v pip3 || command -v pip)"
+  chromedriver="$(command -v chromedriver)"
+  bc="$(command -v bc)"
+  jq="$(command -v jq)"
+  keyring="$(command -v keyring)"
+  mintapi="$(command -v mintapi)"
+
+  echo "Checking dependencies..."
+
+  failed="no"
+
+  if [[ -n "$chromedriver" ]]; then
+    echo "found chromedriver: $chromedriver"
+  else
+    echo "missing chromedriver! Install chromedriver; then rerun setup."
+    failed="yes"
+  fi
+
+  if [[ -n "$bc" ]]; then
+    echo "found bc: $bc"
+  else
+    echo "missing bc! Install bc; then rerun setup."
+    failed="yes"
+  fi
+
+  if [[ -n "$jq" ]]; then
+    echo "found jq: $jq"
+  else
+    echo "missing jq! Install jq; then rerun setup."
+    failed="yes"
+  fi
+
+  if [[ -n "$python" ]]; then
+    echo "found python: $python"
+  else
+    echo "missing python! Install python; then rerun setup."
+    exit 1
+  fi
+  if [[ -n "$pip" ]]; then
+    echo "found pip: $pip"
+  else
+    pip="pip"
+  fi
+
+  if [[ -n "$mintapi" ]]; then
+    echo "found mintapi: $mintapi"
+  else
+    echo "missing mintapi! Install with  $(basename "$pip") install mintapi"
+    failed="yes"
+  fi
+
+  if [[ -n "$keyring" ]]; then
+    echo "found keyring: $keyring"
+  else
+    echo "missing keyring! Install with  $(basename "$pip") install keyring keyrings.alt"
+    failed="yes"
+  fi
+  if [[ "$failed" == "yes" ]]; then
+    exit 1
+  fi
+}
+
+check_mintapi() {
+  if mintapi --headless --no_wait_for_sync --keyring; then
+    echo "Successfully set up!"
+  fi
+}
+
+check_dependencies
+check_mintapi
