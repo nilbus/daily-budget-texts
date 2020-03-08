@@ -3,6 +3,20 @@
 set -o errexit
 set -o nounset
 
+print_usage() {
+  echo "Usage: calculate-text <mint_account_email>"
+}
+
+parse_options() {
+  mint_email="${1-}"
+  if ! [[ "$mint_email" == *'@'* ]]; then
+    print_usage
+    exit 1
+  fi
+}
+
+parse_options "$@"
+
 budget=5150
 spent=$(
   jq '
